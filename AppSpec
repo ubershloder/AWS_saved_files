@@ -1,0 +1,22 @@
+version: 1.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/html/*
+hooks:
+  BeforeInstall:
+    - location: app/dep.sh
+      timeout: 60
+      runas: uber
+  AfterInstall:
+    - location: app/chperm.sh
+      timeout: 60
+      runas: uber
+  ApplicationStart:
+    - location: app/startapp.sh
+      timeout: 60
+      runas: uber
+  ApplicationStop:
+    - location: app/stopapp.sh
+      timeout: 60
+      runas: root
